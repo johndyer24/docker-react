@@ -1,0 +1,23 @@
+version: '3'
+services:
+  frontend-local:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
+  frontend-prod:
+    build: .
+    ports:
+      - "8080:80"
